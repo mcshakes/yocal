@@ -3,7 +3,6 @@ const express = require("express");
 const db = require("./db");
 
 const morgan = require("morgan");
-const e = require("express");
 const app = express();
 
 app.use(morgan("dev"));
@@ -28,13 +27,21 @@ app.get("/api/v1/restaurants", async (req, res) => {
 
 })
 
-app.get("/api/v1/restaurants/:restaurantId", (req, res) => {
-    res.status(200).json({
-        status: "success",
-        data: {
-            restaurant: ["mcdonalds", "wendys"]
-        }
-    })
+app.get("/api/v1/restaurants/:id", async (req, res) => {
+
+    try {
+        const results = await db.query("SELECT * FROM restaurants WHERE id = $1", [req.params.id])
+
+        res.status(200).json({
+            status: "success",
+            data: {
+                restaurant: results.rows[0]
+            }
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
 })
 
 app.post("/api/v1/restaurants", (req, res) => {
