@@ -44,17 +44,44 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
 
 })
 
-app.post("/api/v1/restaurants", (req, res) => {
-    console.log(req.body)
+app.post("/api/v1/restaurants", async (req, res) => {
+    try {
+        const results = await db.query("INSERT INTO restaurants (name, street_address, city, zipcode, price_range, food_type) values ($1, $2, $3, $4, $5, $6) returning *",
+            [req.body.name, req.body.street_address, req.body.city, req.body.zipcode, req.body.price_range, req.body.food_type]);
+
+        res.status(201).json({
+            status: "success",
+            data: {
+                restaurant: results.rows[0]
+            }
+        })
+
+    } catch (e) {
+        console.log(err)
+    }
 })
 
-app.put("/api/v1/restaurants", (req, res) => {
-    console.log(req.params.id)
+app.put("/api/v1/restaurants/:id", async (req, res) => {
+    try {
+        const results = await db.query("UPDATE restaurants SET name = $1, street_address = $2, city = $3, zipcode = $4, price_range = $5, food_type = $6 where id = $7 returning *", [req.body.name, req.body.street_address, req.body.city, req.body.zipcode, req.body.price_range, req.body.food_type, req.params.id])
+
+        res.status(200).json({
+            status: "success",
+            data: {
+                restaurant: results.rows[0]
+            }
+        })
+
+    } catch (err) {
+        console.log(err)
+    }
 })
 
-app.post("/api/v1/restaurants", (req, res) => {
-    console.log(req.body)
-})
+// app.post("/api/v1/restaurants", (req, res) => {
+//     console.log(req.body)
+// DELET FROM restaurants where id = $1
+// res status is 204
+// })
 
 
 const port = process.env.PORT || 3001;
