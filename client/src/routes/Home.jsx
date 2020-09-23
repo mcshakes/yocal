@@ -1,9 +1,13 @@
 import React from "react";
+import AddRestaurant from "../components/AddRestaurant";
 
 const Home = () => {
     return (
         <div>
-            Home
+            <div className="header">
+                HOME!
+            </div>
+            <AddRestaurant />
         </div>
     )
 }
