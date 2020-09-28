@@ -9,7 +9,19 @@ const useStyles = makeStyles((theme) => ({
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-        width: "60%"
+        width: "40%",
+        borderRadius: "10px"
+    },
+    formRow: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        "& .col": {
+            marginTop: ".5rem"
+        },
+        "& input": {
+            width: "22rem"
+        }
     }
 }));
 
@@ -44,8 +56,8 @@ const AddRestaurantForm = () => {
                     <TextField id="outlined-basic" label="Food Type" variant="outlined" />
                 </div>
                 <div className="col">
+                    <PriceRange onSetPrice={handleRestaurantPrice} />
                 </div>
-                <PriceRange onSetPrice={handleRestaurantPrice} />
             </div>
 
         </form>
