@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PriceRange from "./PriceRange";
-import { TextField } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,8 +36,17 @@ const AddRestaurantForm = () => {
         setRestaurantPrice(price)
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(e)
+    }
+
     return (
-        <form className={classes.addForm} autoComplete="off">
+        <form
+            className={classes.addForm}
+            autoComplete="off"
+            onSubmit={handleSubmit}
+        >
             <div className={classes.formRow}>
                 <div className="col">
                     <TextField id="outlined-basic" label="Name" variant="outlined" />
@@ -58,7 +67,12 @@ const AddRestaurantForm = () => {
                 <div className="col">
                     <PriceRange onSetPrice={handleRestaurantPrice} />
                 </div>
+
+                <Button variant="contained" color="primary">
+                    Add Restaurant
+                </Button>
             </div>
+
 
         </form>
     )

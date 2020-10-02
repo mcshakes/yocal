@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
     const classes = useStyles();
 
-    const [addFormStatus, changeAddForm] = useState(false);
+    // const [addFormStatus, changeAddForm] = useState(false);
 
-    const handleRestaurantForm = () => {
-        changeAddForm(true);
-    }
+    // const handleRestaurantForm = () => {
+    //     changeAddForm(true);
+    // }
 
     return (
         <div>
