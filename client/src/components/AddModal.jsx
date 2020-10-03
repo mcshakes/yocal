@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
 const AddModal = () => {
     const classes = useStyles();
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [status, isModalSubmitted] = useState(false);
 
     const handleOpen = () => {
         setOpen(true);
@@ -32,7 +33,6 @@ const AddModal = () => {
     const handleClose = () => {
         setOpen(false);
     };
-
 
     return (
         <div>
@@ -59,7 +59,7 @@ const AddModal = () => {
             >
                 <Fade in={open}>
                     <div className={classes.formContainer}>
-                        <AddRestaurantForm />
+                        <AddRestaurantForm isSubmitted={handleClose} />
                     </div>
                 </Fade>
             </Modal>

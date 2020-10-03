@@ -46,6 +46,7 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
 })
 
 app.post("/api/v1/restaurants", async (req, res) => {
+
     try {
         const results = await db.query("INSERT INTO restaurants (name, street_address, city, zipcode, price_range, food_type) values ($1, $2, $3, $4, $5, $6) returning *",
             [req.body.name, req.body.street_address, req.body.city, req.body.zipcode, req.body.price_range, req.body.food_type]);

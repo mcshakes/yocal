@@ -22,24 +22,25 @@ const RestaurantList = (props) => {
         <div className="list-group">
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
+                    <caption>A table list of all the restaurants in database</caption>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Street Address</TableCell>
-                            <TableCell>City</TableCell>
-                            <TableCell>Zipcode</TableCell>
-                            <TableCell>Price Range</TableCell>
-                            <TableCell>Food Type</TableCell>
+                            <TableCell scope="col">Name</TableCell>
+                            <TableCell scope="col">Street Address</TableCell>
+                            <TableCell scope="col">City</TableCell>
+                            <TableCell scope="col">Zipcode</TableCell>
+                            <TableCell scope="col">Price Range</TableCell>
+                            <TableCell scope="col">Food Type</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.restaurants.map((row) => (
-                            <TableRow key={row.id}>
-                                <TableCell align="inherit">{row.name}</TableCell>
+                        {props.restaurants && props.restaurants.map((row) => (
+                            <TableRow key={row.name}>
+                                <TableCell align="inherit" component="th" scope="row">{row.name}</TableCell>
                                 <TableCell align="inherit">{row.street_address}</TableCell>
                                 <TableCell align="inherit">{row.city}</TableCell>
                                 <TableCell align="inherit">{row.zipcode}</TableCell>
-                                <TableCell align="inherit">{row.price_range}</TableCell>
+                                <TableCell align="inherit">{"$".repeat(row.price_range)}</TableCell>
                                 <TableCell align="inherit">{row.food_type}</TableCell>
                             </TableRow>
                         ))}
