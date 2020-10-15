@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -18,6 +19,10 @@ const useStyles = makeStyles({
 const RestaurantList = (props) => {
     const classes = useStyles();
 
+    const handleDelete = (id) => {
+        props.removeRestaurant(id)
+    }
+
     return (
         <div className="list-group">
             <TableContainer component={Paper}>
@@ -28,20 +33,28 @@ const RestaurantList = (props) => {
                             <TableCell scope="col">Name</TableCell>
                             <TableCell scope="col">Street Address</TableCell>
                             <TableCell scope="col">City</TableCell>
-                            <TableCell scope="col">Zipcode</TableCell>
                             <TableCell scope="col">Price Range</TableCell>
                             <TableCell scope="col">Food Type</TableCell>
+                            <TableCell scope="col">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {props.restaurants && props.restaurants.map((row) => (
-                            <TableRow key={row.name}>
+                            <TableRow key={row.id}>
                                 <TableCell align="inherit" component="th" scope="row">{row.name}</TableCell>
                                 <TableCell align="inherit">{row.street_address}</TableCell>
                                 <TableCell align="inherit">{row.city}</TableCell>
-                                <TableCell align="inherit">{row.zipcode}</TableCell>
                                 <TableCell align="inherit">{"$".repeat(row.price_range)}</TableCell>
                                 <TableCell align="inherit">{row.food_type}</TableCell>
+                                <TableCell>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        onClick={() => handleDelete(row.id)}
+                                    >
+                                        DELETE
+                                    </Button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

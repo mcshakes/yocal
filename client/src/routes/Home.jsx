@@ -11,6 +11,11 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(1),
         },
     },
+    header: {
+        display: "flex",
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 }));
 
 const Home = () => {
@@ -29,16 +34,26 @@ const Home = () => {
         }
     }, [])
 
+    const deleteRestaurant = async (id) => {
+        try {
+            const response = await RestaurantFinder.delete(`/${id}`)
+            setRestaurants(restaurants.filter(restaurant => {
+                return restaurant.id !== id
+            }))
+        } catch (err) {
+            console.log("Error Deleting Restaurant\n", err)
+        }
+    }
+
 
     return (
         <div>
-            <div className="header">
-                HOME!
+            <div className={classes.header}>
+                <h1>Yocal Clone</h1>
             </div>
             <AddModal />
             <div className="list">
-                <RestaurantList restaurants={restaurants} />
-
+                <RestaurantList restaurants={restaurants} removeRestaurant={deleteRestaurant} />
             </div>
 
         </div>

@@ -7,13 +7,12 @@ import Backdrop from '@material-ui/core/Backdrop';
 import AddRestaurantForm from "./AddRestaurantForm";
 
 const useStyles = makeStyles((theme) => ({
-
-    modal: {
+    formContainer: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    formContainer: {
+    addButton: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -35,7 +34,7 @@ const AddModal = () => {
     };
 
     return (
-        <div>
+        <div className={classes.addButton}>
             {!open &&
                 <Button
                     variant="contained"
@@ -46,6 +45,7 @@ const AddModal = () => {
                 </Button>
             }
             <Modal
+                className={classes.formContainer}
                 open={open}
                 onClose={handleClose}
                 closeAfterTransition
@@ -56,11 +56,10 @@ const AddModal = () => {
                 BackdropProps={{
                     timeout: 500,
                 }}
+
             >
                 <Fade in={open}>
-                    <div className={classes.formContainer}>
-                        <AddRestaurantForm isSubmitted={handleClose} />
-                    </div>
+                    <AddRestaurantForm isSubmitted={handleClose} />
                 </Fade>
             </Modal>
         </div>
