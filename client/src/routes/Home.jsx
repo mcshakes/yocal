@@ -41,7 +41,7 @@ const Home = () => {
                 return restaurant.id !== id
             }))
         } catch (err) {
-            console.log("Error Deleting Restaurant\n", err)
+            // console.log("Error Deleting Restaurant\n", err)
         }
     }
 
