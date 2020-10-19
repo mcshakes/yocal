@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     table: {
@@ -17,10 +18,15 @@ const useStyles = makeStyles({
 
 
 const RestaurantList = (props) => {
+    let history = useHistory()
     const classes = useStyles();
 
     const handleDelete = (id) => {
         props.removeRestaurant(id)
+    }
+
+    const handleRestaurantSelect = (id) => {
+        history.push(`/restaurants/${id}`)
     }
 
     return (
@@ -40,7 +46,10 @@ const RestaurantList = (props) => {
                     </TableHead>
                     <TableBody>
                         {props.restaurants && props.restaurants.map((row) => (
-                            <TableRow key={row.id}>
+                            <TableRow
+                                key={row.id}
+                                onClick={() => handleRestaurantSelect(row.id)}
+                            >
                                 <TableCell align="inherit" component="th" scope="row">{row.name}</TableCell>
                                 <TableCell align="inherit">{row.street_address}</TableCell>
                                 <TableCell align="inherit">{row.city}</TableCell>
