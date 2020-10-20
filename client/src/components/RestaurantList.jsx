@@ -21,7 +21,8 @@ const RestaurantList = (props) => {
     let history = useHistory()
     const classes = useStyles();
 
-    const handleDelete = (id) => {
+    const handleDelete = (e, id) => {
+        e.stopPropagation()
         props.removeRestaurant(id)
     }
 
@@ -59,7 +60,7 @@ const RestaurantList = (props) => {
                                     <Button
                                         variant="contained"
                                         color="secondary"
-                                        onClick={() => handleDelete(row.id)}
+                                        onClick={(e) => handleDelete(e, row.id)}
                                     >
                                         DELETE
                                     </Button>
