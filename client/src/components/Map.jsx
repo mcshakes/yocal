@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 
-const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+const MAPBOX_TOKEN = "";
 
 function Map() {
     const [viewport, setViewport] = useState({
@@ -12,7 +12,7 @@ function Map() {
         bearing: 0,
         pitch: 0
     });
-    console.log("FUKC", MAPBOX_TOKEN)
+
     return (
         <ReactMapGL
             {...viewport}
