@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const AddRestaurantForm = (props) => {
+const AddRestaurantForm = (props, ref) => {
 
     const classes = useStyles();
     const { addRestaurant } = useContext(RestaurantsContext);

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AddModal = () => {
+const AddModal = (props) => {
     const classes = useStyles();
 
     const [open, setOpen] = useState(false);
@@ -51,12 +51,10 @@ const AddModal = () => {
                 closeAfterTransition
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
-
                 BackdropComponent={Backdrop}
                 BackdropProps={{
                     timeout: 500,
                 }}
-
             >
                 <Fade in={open}>
                     <AddRestaurantForm isSubmitted={handleClose} />
