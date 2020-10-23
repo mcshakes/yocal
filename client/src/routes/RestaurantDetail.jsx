@@ -25,7 +25,6 @@ const RestaurantDetail = () => {
             <h1>{selectedRestaurant && selectedRestaurant.name}</h1>
 
             <div>
-                <Map />
             </div>
         </div>
     )
