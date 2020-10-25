@@ -4,6 +4,8 @@ const db = require("./db");
 const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
+const bodyParser = 'body-parser';
+const { graphqlHTTP } = require('express-graphql');
 
 app.use(morgan("dev"));
 
@@ -98,3 +100,6 @@ const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`Server is up and listening on ${port}`)
 })
+
+// curl --request GET \
+//   --url 'https://us1.locationiq.com/v1/search.php?key=TOKEN&q=4100%20Perry%20St%20Denver&format=json'
