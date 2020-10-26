@@ -5,12 +5,13 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 const bodyParser = 'body-parser';
-const { graphqlHTTP } = require('express-graphql');
+const yelpRouter = require("./graphql/yelp");
 
 app.use(morgan("dev"));
 
 app.use(cors());
 app.use(express.json());
+app.use("/api/v1/yelp", yelpRouter);
 
 app.get("/api/v1/restaurants", async (req, res) => {
 
