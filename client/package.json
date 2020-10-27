@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "apollo-datasource-rest": "^0.9.4",
     "axios": "^0.20.0",
     "graphql": "^15.3.0",
     "materialize-css": "^1.0.0-rc.2",

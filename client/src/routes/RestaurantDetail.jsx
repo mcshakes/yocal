@@ -1,73 +1,74 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { RestaurantsContext } from "../context/RestaurantsContext";
 import RestaurantFinder from "../apis/RestaurantFinder";
+import BusinessData, { API_DEFAULT_PARAMS } from "../apis/BusinessData";
 import { useQuery, gql } from '@apollo/client';
 
-const RESTAURANT_DATA = gql`
-{   
-    query getRestaurantData($term: String, $location: String, $limit: Int) {
-        search(
-            term:"shake shack",
-            location:"denver",
-            limit: 1
-          ) {
-            business {
-              coordinates {
-                latitude
-                longitude
-              }
-              categories {
-                title
-                alias
-              }
-              attributes {
-                wheelchair_accessible {
-                  name_code
-                  value_code
-                }
-              }
-              rating
-              price
-              review_count
-              reviews {
-                text
-                rating
-                time_created
-              }
-            }
-          }
-    }
-    
-  }
-`;
-
 const RestaurantDetail = () => {
-    const { id } = useParams();
-    const { selectedRestaurant, setSelectedRestaurant } = useContext(RestaurantsContext)
-    const { loading, error, data } = useQuery(RESTAURANT_DATA);
+  const { id } = useParams();
+  const { selectedRestaurant, setSelectedRestaurant } = useContext(RestaurantsContext)
+  const [yelpData, setYelpData] = useState([])
+
+  useEffect(() => {
+    try {
+
+      const fetchData = async () => {
+        const response = await RestaurantFinder.get(`/${id}`)
+        setSelectedRestaurant(response.data.data.restaurant)
+      };
+
+      fetchData()
+
+    } catch (err) {
+      console.log("Error Fetching Restaurants\n", err)
+    }
+  }, [])
 
 
-    useEffect(() => {
+
+  useEffect(() => {
+
+    setTimeout(() => {
+
+      if (selectedRestaurant != null) {
         try {
-            const fetchData = async () => {
-                const response = await RestaurantFinder.get(`/${id}`)
-                setSelectedRestaurant(response.data.data.restaurant)
-            }
-            fetchData()
+          const fetchRestaurantData = async () => {
+            // let variables = {
+            //   "term": "Shake Shack",
+            //   "location": "Denver",
+            //   "limit": 1
+            // }
+
+            const response = await BusinessData.get("/", {
+              params: Object.assign(API_DEFAULT_PARAMS, { term: selectedRestaurant.name, location: selectedRestaurant.city })
+            })
+
+            setYelpData(response)
+          };
+
+          fetchRestaurantData()
+
         } catch (err) {
-            console.log("Error Fetching Restaurants\n", err)
+          console.log("Error Fetching Restaurants\n", err)
         }
-    }, [])
+      }
 
-    return (
-        <div>
-            <h1>{selectedRestaurant && selectedRestaurant.name}</h1>
+    }, 1000)
 
-            <div>
-            </div>
-        </div>
-    )
+
+  }, [selectedRestaurant])
+
+
+  return (
+
+    <div>
+      <h1>{selectedRestaurant && selectedRestaurant.name}</h1>
+
+      <div>
+      </div>
+    </div>
+  )
 }
 
 export default RestaurantDetail; 
