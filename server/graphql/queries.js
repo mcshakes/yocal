@@ -1,4 +1,6 @@
-const RESTAURANT_DATA = ` 
+const gql = require('graphql-tag');
+
+const RESTAURANT_DATA = gql` 
     query getRestaurantData($term: String, $location: String, $limit: Int) {
         search(
             term: $term,
@@ -33,4 +35,13 @@ const RESTAURANT_DATA = `
     }
 `;
 
-module.exports = { RESTAURANT_DATA }
+const BUSINESS_DATA = gql`
+    query getShit {
+        business(id: "X3jQiR55HGBDPbePpUbzWQ") {
+            name
+            phone
+          }
+    }
+`
+
+module.exports = { RESTAURANT_DATA, BUSINESS_DATA }
