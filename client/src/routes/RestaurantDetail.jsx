@@ -4,6 +4,8 @@ import { RestaurantsContext } from "../context/RestaurantsContext";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import BusinessData, { API_DEFAULT_PARAMS } from "../apis/BusinessData";
 import { useQuery, gql } from '@apollo/client';
+import RestaurantCard from "../components/RestaurantCard";
+
 
 const RestaurantDetail = () => {
   const { id } = useParams();
@@ -28,17 +30,10 @@ const RestaurantDetail = () => {
 
 
   useEffect(() => {
-
     setTimeout(() => {
-
       if (selectedRestaurant != null) {
         try {
           const fetchRestaurantData = async () => {
-            // let variables = {
-            //   "term": "Shake Shack",
-            //   "location": "Denver",
-            //   "limit": 1
-            // }
 
             const response = await BusinessData.get("/", {
               params: Object.assign(API_DEFAULT_PARAMS, { term: selectedRestaurant.name, location: selectedRestaurant.city })
@@ -55,18 +50,13 @@ const RestaurantDetail = () => {
       }
 
     }, 1000)
-
-
   }, [selectedRestaurant])
-
 
   return (
 
     <div>
-      <h1>{selectedRestaurant && selectedRestaurant.name}</h1>
-
-      <div>
-      </div>
+      { yelpData && <RestaurantCard data={yelpData} initial={selectedRestaurant} />}
+      { !yelpData && <div><h1>LOADING</h1></div>}
     </div>
   )
 }
