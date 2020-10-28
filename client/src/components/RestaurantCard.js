@@ -41,8 +41,20 @@ const RestaurantCard = (props) => {
         setExpanded(!expanded);
     };
 
-    
+    let util = <div><h1>NOTHING</h1></div>;
+    console.log(props.data.data)
+    if (props.data.data && props.data.data.data) {
+        util = (
+            <CardContent>
+                <Typography variant="body2" component="h4">
+                    {props.data.data.data.review_count}
+                </Typography>
+            </CardContent>
+        )
+    }
+
     return (
+
         <div>
             <Card className={classes.root}>
                 {
@@ -52,13 +64,7 @@ const RestaurantCard = (props) => {
                         subheader={props.initial.street_address + ", " + props.initial.city}
                     />
                 }
-                {props.data.data.data &&
-                    <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {props.data.data.data.rating}
-                        </Typography>
-                    </CardContent>
-                }
+                {util}
 
             </Card>
         </div>

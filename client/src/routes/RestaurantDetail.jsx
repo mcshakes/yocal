@@ -56,7 +56,6 @@ const RestaurantDetail = () => {
 
     <div>
       { yelpData && <RestaurantCard data={yelpData} initial={selectedRestaurant} />}
-      { !yelpData && <div><h1>LOADING</h1></div>}
     </div>
   )
 }
