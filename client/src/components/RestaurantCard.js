@@ -2,12 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import clsx from 'clsx';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Typography } from "@material-ui/core";
+import { CardActions, Typography } from "@material-ui/core";
+import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,15 +44,51 @@ const RestaurantCard = (props) => {
         setExpanded(!expanded);
     };
 
-    let util = <div><h1>NOTHING</h1></div>;
-    console.log(props.data.data)
+    let yelpData = <div><h1>NOTHING</h1></div>;
+
+
+
     if (props.data.data && props.data.data.data) {
-        util = (
-            <CardContent>
-                <Typography variant="body2" component="h4">
-                    {props.data.data.data.review_count}
-                </Typography>
-            </CardContent>
+        yelpData = (
+            <>
+                <CardContent>
+                    <Typography variant="body2" component="h4">
+                        Price: {props.data.data.data.price}
+                    </Typography>
+                    <Typography variant="body2" component="h4">
+                        Review Count: {props.data.data.data.review_count}
+                    </Typography>
+                    <Typography variant="body2" component="h4">
+                        Average Rating: {props.data.data.data.rating}
+                    </Typography>
+                </CardContent>
+
+                <CardActions>
+                    <IconButton
+                        className={clsx(classes.expand, {
+                            [classes.expandOpen]: expanded,
+                        })}
+                        onClick={handleExpandClick}
+                        aria-expanded={expanded}
+                        aria-label="show more"
+                    >
+                        <ExpandMoreIcon />
+                    </IconButton>
+                </CardActions>
+
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                        <Typography paragraph>Recent Reviews:</Typography>
+                        {props.data.data.data.reviews.map((review, idx) => (
+                            <Typography paragraph key={idx}>
+                                stars: {review.rating}
+                                date created: {review.time_created}
+                                {review.text}
+                            </Typography>
+                        ))}
+                    </CardContent>
+                </Collapse>
+            </>
         )
     }
 
@@ -64,7 +103,7 @@ const RestaurantCard = (props) => {
                         subheader={props.initial.street_address + ", " + props.initial.city}
                     />
                 }
-                {util}
+                {yelpData}
 
             </Card>
         </div>
