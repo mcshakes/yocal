@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { CardActions, Typography } from "@material-ui/core";
 import Collapse from '@material-ui/core/Collapse';
+import { dateConverter } from "../utilities/date";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         backgroundColor: red[500],
     },
+    review: {
+        display: "flex",
+        flexDirection: "column"
+    }
 }));
 
 
@@ -78,13 +83,19 @@ const RestaurantCard = (props) => {
 
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <Typography paragraph>Recent Reviews:</Typography>
+                        <Typography variant="h5">Recent Reviews:</Typography>
                         {props.data.data.data.reviews.map((review, idx) => (
-                            <Typography paragraph key={idx}>
-                                stars: {review.rating}
-                                date created: {review.time_created}
-                                {review.text}
-                            </Typography>
+                            <div key={idx} className={classes.review}>
+                                <Typography>
+                                    stars: {review.rating}
+                                </Typography>
+                                <Typography>
+                                    date created: {dateConverter(review.time_created)}
+                                </Typography>
+                                <Typography paragraph>
+                                    {review.text}
+                                </Typography>
+                            </div>
                         ))}
                     </CardContent>
                 </Collapse>
