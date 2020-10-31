@@ -26,11 +26,11 @@ router.get("/business/search", (req, res) => {
         mutation: RESTAURANT_DATA,
         variables: req.query
     }).then(response => {
-        let thing = response.data.search.business[0];
+        let data = response.data.search.business[0];
 
         res.status(200).json({
             status: "success",
-            data: thing
+            data
         });
     }).catch(error => {
         console.log(error)
