@@ -15,7 +15,14 @@ import { dateConverter } from "../utilities/date";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        maxWidth: "42rem",
+        backgroundColor: "#222831",
+        borderRadius: "5px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        boxShadow: "rgba(0, 0, 0, 0.7)",
+        color: "white"
     },
     media: {
         height: 0,
@@ -24,9 +31,25 @@ const useStyles = makeStyles((theme) => ({
     expand: {
         transform: 'rotate(0deg)',
         marginLeft: 'auto',
+        boxShadow: "inset 0 0 0 4px #58cdd1",
+        color: "#58afd1",
+        webkitTransition: "color 0.25s 0.0833333333s",
+        transition: "color 0.25s 0.0833333333s",
+        position: "relative",
         transition: theme.transitions.create('transform', {
             duration: theme.transitions.duration.shortest,
         }),
+        "&::before": {
+            borderBottomWidth: "4px",
+            borderLeftWidth: "4px"
+        },
+        "&::after": {
+            borderBottomWidth: "4px",
+            borderLeftWidth: "4px"
+        },
+        "&:hover": {
+            color: "#ffe593"
+        }
     },
     expandOpen: {
         transform: 'rotate(180deg)',
@@ -49,7 +72,7 @@ const RestaurantCard = (props) => {
         setExpanded(!expanded);
     };
 
-    let yelpData = <div><h1>NOTHING</h1></div>;
+    let yelpData = <div><h1>Loading...</h1></div>;
 
 
 
