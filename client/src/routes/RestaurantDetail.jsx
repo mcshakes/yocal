@@ -5,7 +5,7 @@ import RestaurantFinder from "../apis/RestaurantFinder";
 import BusinessData, { API_DEFAULT_PARAMS } from "../apis/BusinessData";
 import { useQuery, gql } from '@apollo/client';
 import RestaurantCard from "../components/RestaurantCard";
-
+import Map from "../components/Map";
 
 const RestaurantDetail = () => {
   const { id } = useParams();
@@ -55,7 +55,15 @@ const RestaurantDetail = () => {
   return (
 
     <div>
-      { yelpData && <RestaurantCard data={yelpData} initial={selectedRestaurant} />}
+      { yelpData && 
+        <div>
+          <RestaurantCard data={yelpData} initial={selectedRestaurant} />
+        </div>
+      
+      }
+        {
+            yelpData.data && <Map coordinates={yelpData} />
+        }
     </div>
   )
 }
