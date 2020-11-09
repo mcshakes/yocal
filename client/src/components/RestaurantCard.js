@@ -16,6 +16,7 @@ import { dateConverter } from "../utilities/date";
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: "42rem",
+        minWidth: "42rem",
         backgroundColor: "#222831",
         borderRadius: "5px",
         display: "flex",

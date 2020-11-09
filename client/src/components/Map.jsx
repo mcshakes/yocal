@@ -19,7 +19,7 @@ const Map = (props) => {
         <div>
             <ReactMapGL
                 {...viewport}
-                width="60vw"
+                width="50vw"
                 height="60vh"
                 mapStyle="mapbox://styles/mapbox/streets-v11"
                 onViewportChange={_onViewportChange}

@@ -2,13 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { RestaurantsContext } from "../context/RestaurantsContext";
 import RestaurantFinder from "../apis/RestaurantFinder";
+import { makeStyles } from '@material-ui/core/styles';
 import BusinessData, { API_DEFAULT_PARAMS } from "../apis/BusinessData";
 import { useQuery, gql } from '@apollo/client';
 import RestaurantCard from "../components/RestaurantCard";
 import Map from "../components/Map";
 
+const useStyles = makeStyles((theme) => ({
+  detailPage: {
+    display: "flex"
+  }
+}));
+
 const RestaurantDetail = () => {
   const { id } = useParams();
+  const classes = useStyles();
+
   const { selectedRestaurant, setSelectedRestaurant } = useContext(RestaurantsContext)
   const [yelpData, setYelpData] = useState([])
 
@@ -54,7 +63,7 @@ const RestaurantDetail = () => {
 
   return (
 
-    <div>
+    <div className={classes.detailPage}>
       { yelpData && 
         <div>
           <RestaurantCard data={yelpData} initial={selectedRestaurant} />
