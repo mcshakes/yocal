@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { useState } from 'react';
-import ReactMapGL from 'react-map-gl';
+import { useState } from "react";
+import {PureComponent} from "react";
+import ReactMapGL, {Marker} from 'react-map-gl';
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
@@ -24,7 +25,16 @@ const Map = (props) => {
                 mapStyle="mapbox://styles/mapbox/streets-v11"
                 onViewportChange={_onViewportChange}
                 mapboxApiAccessToken={MAPBOX_TOKEN}
-            />
+            >
+                <Marker 
+                    latitude={props.coordinates.data.data.coordinates.latitude} 
+                    longitude={props.coordinates.data.data.coordinates.longitude} 
+                    offsetLeft={-20} 
+                    offsetTop={-10} 
+                    
+                ><div>HERE</div></Marker>
+            </ReactMapGL>
+                
         </div>
     );
 }
