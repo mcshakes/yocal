@@ -21,7 +21,6 @@ const client = new ApolloClient({
 });
 
 router.get("/business/search", (req, res) => {
-
     client.mutate({
         mutation: RESTAURANT_DATA,
         variables: req.query

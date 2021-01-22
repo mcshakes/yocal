@@ -1,5 +1,6 @@
 const express = require("express");
 const restaurantRouter = express.Router({ mergeParams: true });
+
 const db = require("../db/index");
 
 restaurantRouter.get("/api/v1/restaurants", async (req, res) => {
