@@ -30,13 +30,24 @@ const createTable = async function (tableName) {
         )
 }
 
-const insert = async function (tableName, itemName, price) {
+const insertRestaurant = async function (name, street_address, city, zipcode, price_range, food_type) {
+    const client = new Client(getConnection())
+    await client.connect()
+
+    // return await client.query(`INSERT INTO ${tableName} (name, price) VALUES ('${itemName}', '${price}');`)
+    return await client.query(`INSERT INTO test_restaurants (name, street_address, city, zipcode, price_range, food_type) values ($1, $2, $3, $4, $5, $6) returning *`,
+            [name, street_address, city, zipcode, price_range, food_type]);
+}
+
+const showAll = async function (limit = 'ALL', columns = '*') {
     const client = new Client(getConnection())
     await client.connect()
   
-    return await client.query(`INSERT INTO ${tableName} (name, price) VALUES ('${itemName}', '${price}');`)
+    return await client.query(`SELECT ${columns} FROM test_restaurants LIMIT ${limit}`)
 }
 
 module.exports = {
-    createTable
-  }
+    createTable,
+    insertRestaurant,
+    showAll
+}
