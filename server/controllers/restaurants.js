@@ -1,12 +1,14 @@
 const express = require("express");
 const restaurantRouter = express.Router({ mergeParams: true });
+const { createTable, insertRestaurant, select } = require("../db/db-utils");
 
 const db = require("../db/index");
 
 restaurantRouter.get("/api/v1/restaurants", async (req, res) => {
 
     try {
-        const results = await db.query("SELECT * FROM restaurants");
+        // const results = await db.query("SELECT * FROM restaurants");
+        const results = await select("restaurants");
 
         res.status(200).json({
             status: "success",
