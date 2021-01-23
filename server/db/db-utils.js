@@ -28,6 +28,9 @@ const createTable = async function (tableName) {
                 );
         `
         )
+    
+    await client.end()
+    return res
 }
 
 const insertRestaurant = async function (name, street_address, city, zipcode, price_range, food_type) {
@@ -37,6 +40,9 @@ const insertRestaurant = async function (name, street_address, city, zipcode, pr
     // return await client.query(`INSERT INTO ${tableName} (name, price) VALUES ('${itemName}', '${price}');`)
     return await client.query(`INSERT INTO test_restaurants (name, street_address, city, zipcode, price_range, food_type) values ($1, $2, $3, $4, $5, $6) returning *`,
             [name, street_address, city, zipcode, price_range, food_type]);
+
+    await client.end()
+    return res
 }
 
 const showAll = async function (limit = 'ALL', columns = '*') {
@@ -44,6 +50,18 @@ const showAll = async function (limit = 'ALL', columns = '*') {
     await client.connect()
   
     return await client.query(`SELECT ${columns} FROM test_restaurants LIMIT ${limit}`)
+
+    await client.end()
+    return res
+}
+
+const dropTable = async function (tableName) {
+    const client = new Client(getConnection())
+
+    await client.connect()
+
+    await client.query(`DROP TABLE IF EXISTS ${tableName}`)
+    await client.end()
 }
 
 module.exports = {

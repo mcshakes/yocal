@@ -2,6 +2,7 @@ const { createTable, insertRestaurant, showAll } = require("../db/db-utils");
 
 
 describe('Database Utils', () => {
+    
     describe('createTable', () => {
       it('should create the table in the database', async () => {
         const res = await createTable('test_restaurants')
@@ -28,4 +29,8 @@ describe('Database Utils', () => {
           expect(res.rows).toStrictEqual([ { id: 1, name: 'steering wheel', price_range: 3, street_address: "3800 Perry St", city: "Denver", food_type: "American", zipcode: "80212"} ])
         })
     })
+
+    afterAll(async () => {
+        await dropTable('test_restaurants')
+      })
 })
