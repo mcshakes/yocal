@@ -30,3 +30,5 @@ app.listen(port, () => {
 
 // curl --request GET \
 //   --url 'https://us1.locationiq.com/v1/search.php?key=TOKEN&q=4100%20Perry%20St%20Denver&format=json'
+
+module.exports = app;

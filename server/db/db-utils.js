@@ -45,11 +45,11 @@ const insertRestaurant = async function (name, street_address, city, zipcode, pr
     return res
 }
 
-const showAll = async function (limit = 'ALL', columns = '*') {
+const showAll = async function (tableName, limit = 'ALL', columns = '*') {
     const client = new Client(getConnection())
     await client.connect()
   
-    return await client.query(`SELECT ${columns} FROM test_restaurants LIMIT ${limit}`)
+    return await client.query(`SELECT ${columns} FROM ${tableName} LIMIT ${limit}`)
 
     await client.end()
     return res
@@ -67,5 +67,6 @@ const dropTable = async function (tableName) {
 module.exports = {
     createTable,
     insertRestaurant,
-    showAll
+    showAll,
+    dropTable
 }

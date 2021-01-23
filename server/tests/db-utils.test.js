@@ -16,7 +16,7 @@ describe('Database Utils', () => {
 
     describe('insert', () => {
         it('should insert an item into the table', async () => {
-          const res = await insertRestaurant('steering wheel', "3800 Perry St", "Denver", "80212", 3, "American")
+          const res = await insertRestaurant('Pasta Joint', "3800 Perry St", "Denver", "80212", 3, "American")
         
           //   [name, street_address, city, zipcode, price_range, food_type])     In this order
           expect(res.rowCount).toEqual(1)
@@ -25,8 +25,8 @@ describe('Database Utils', () => {
 
     describe('select', () => {
         it('should select items from the table', async () => {
-          const res = await showAll()
-          expect(res.rows).toStrictEqual([ { id: 1, name: 'steering wheel', price_range: 3, street_address: "3800 Perry St", city: "Denver", food_type: "American", zipcode: "80212"} ])
+          const res = await showAll('test_restaurants')
+          expect(res.rows).toStrictEqual([ { id: 1, name: 'Pasta Joint', price_range: 3, street_address: "3800 Perry St", city: "Denver", food_type: "American", zipcode: "80212"} ])
         })
     })
 
