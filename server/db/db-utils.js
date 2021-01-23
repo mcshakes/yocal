@@ -4,7 +4,7 @@ const getConnection = () => {
     return {
         user: process.env.PGUSER,
         host: process.env.PGHOST,
-        database: process.env.TEST_PG_DB,
+        database: process.env.PGDATABASE,
         port: 5432,
         password: null
     }
@@ -45,7 +45,7 @@ const insertRestaurant = async function (name, street_address, city, zipcode, pr
     return res
 }
 
-const showAll = async function (tableName, limit = 'ALL', columns = '*') {
+const select = async function (tableName, limit = 'ALL', columns = '*') {
     const client = new Client(getConnection())
     await client.connect()
   
@@ -67,6 +67,6 @@ const dropTable = async function (tableName) {
 module.exports = {
     createTable,
     insertRestaurant,
-    showAll,
+    select,
     dropTable
 }

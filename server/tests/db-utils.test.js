@@ -1,4 +1,4 @@
-const { createTable, insertRestaurant, showAll } = require("../db/db-utils");
+const { createTable, insertRestaurant, select } = require("../db/db-utils");
 
 
 describe('Database Utils', () => {
@@ -25,7 +25,7 @@ describe('Database Utils', () => {
 
     describe('select', () => {
         it('should select items from the table', async () => {
-          const res = await showAll('test_restaurants')
+          const res = await select('test_restaurants')
           expect(res.rows).toStrictEqual([ { id: 1, name: 'Pasta Joint', price_range: 3, street_address: "3800 Perry St", city: "Denver", food_type: "American", zipcode: "80212"} ])
         })
     })
