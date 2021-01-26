@@ -4,8 +4,25 @@ const { createTable, insertRestaurant, select } = require("../db/db-utils");
 
 const db = require("../db/index");
 
-restaurantRouter.get("/api/v1/restaurants", async (req, res) => {
+restaurantRouter.get("/api/v1/test-restaurants", async (req, res) => {
+    try {
+        const results = await select("test_restaurants");
 
+        res.status(200).json({
+            status: "success",
+            results: results.rows.length,
+            data: {
+                restaurants: results.rows
+            }
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
+
+restaurantRouter.get("/api/v1/restaurants", async (req, res) => {
     try {
         // const results = await db.query("SELECT * FROM restaurants");
         const results = await select("restaurants");
@@ -20,7 +37,6 @@ restaurantRouter.get("/api/v1/restaurants", async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-
 })
 
 restaurantRouter.get("/api/v1/restaurants/:id", async (req, res) => {

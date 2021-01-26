@@ -33,12 +33,11 @@ const createTable = async function (tableName) {
     return res
 }
 
-const insertRestaurant = async function (name, street_address, city, zipcode, price_range, food_type) {
+const insertRestaurant = async function (tableName, name, street_address, city, zipcode, price_range, food_type) {
     const client = new Client(getConnection())
     await client.connect()
 
-    // return await client.query(`INSERT INTO ${tableName} (name, price) VALUES ('${itemName}', '${price}');`)
-    return await client.query(`INSERT INTO test_restaurants (name, street_address, city, zipcode, price_range, food_type) values ($1, $2, $3, $4, $5, $6) returning *`,
+    return await client.query(`INSERT INTO ${tableName} (name, street_address, city, zipcode, price_range, food_type) values ($1, $2, $3, $4, $5, $6) returning *`,
             [name, street_address, city, zipcode, price_range, food_type]);
 
     await client.end()

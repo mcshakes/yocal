@@ -16,7 +16,7 @@ describe('Database Utils', () => {
 
     describe('insert', () => {
         it('should insert an item into the table', async () => {
-          const res = await insertRestaurant('Pasta Joint', "3800 Perry St", "Denver", "80212", 3, "American")
+          const res = await insertRestaurant('test_restaurants', 'Pasta Joint', "3800 Perry St", "Denver", "80212", 3, "American")
         
           //   [name, street_address, city, zipcode, price_range, food_type])     In this order
           expect(res.rowCount).toEqual(1)
