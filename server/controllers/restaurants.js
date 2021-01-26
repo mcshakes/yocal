@@ -27,7 +27,7 @@ restaurantRouter.get("/api/v1/restaurants/:id", async (req, res) => {
 
     try {
         const results = await db.query("SELECT * FROM restaurants WHERE id = $1", [req.params.id])
-
+        
         res.status(200).json({
             status: "success",
             data: {
@@ -43,8 +43,10 @@ restaurantRouter.get("/api/v1/restaurants/:id", async (req, res) => {
 restaurantRouter.post("/api/v1/restaurants", async (req, res) => {
 
     try {
-        const results = await db.query("INSERT INTO restaurants (name, street_address, city, zipcode, price_range, food_type) values ($1, $2, $3, $4, $5, $6) returning *",
-            [req.body.name, req.body.street_address, req.body.city, req.body.zipcode, req.body.price_range, req.body.food_type]);
+        // const results = await db.query("INSERT INTO restaurants (name, street_address, city, zipcode, price_range, food_type) values ($1, $2, $3, $4, $5, $6) returning *",
+        //     [req.body.name, req.body.street_address, req.body.city, req.body.zipcode, req.body.price_range, req.body.food_type]);
+
+        const results = await insertRestaurant("restaurants", req.body.name, req.body.street_address, req.body.city, req.body.zipcode, req.body.price_range, req.body.food_type)
 
         res.status(201).json({
             status: "success",
@@ -53,7 +55,7 @@ restaurantRouter.post("/api/v1/restaurants", async (req, res) => {
             }
         })
 
-    } catch (e) {
+    } catch (err) {
         console.log(err)
     }
 })
